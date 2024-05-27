@@ -1,0 +1,10 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded">
+    <h2 class="text-lg font-bold mb-2"><%= resource.errors.count %>  Errors: user could not be saved</h2>
+    <ul>
+      <% resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
