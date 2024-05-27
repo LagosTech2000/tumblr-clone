@@ -1,0 +1,27 @@
+<!-- app/views/users/show.html.erb -->
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-4">User Profile</h1>
+  
+  <div class="bg-white shadow-md p-4 rounded-lg">
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <!-- Add any other user details you want to display -->
+  </div>
+
+  <div class="bg-white shadow-md p-4 rounded-lg">
+    <p><strong>Username:</strong> <%= @user.username %></p>
+    <!-- Add any other user details you want to display -->
+  </div>
+
+  <div class="bg-white shadow-md p-4 rounded-lg">
+    <p><strong>Joined
+
+     <%= time_ago_in_words(@user.created_at) %></p>
+    </strong>
+
+    <%= link_to "Home Page" , root_path, class: "mt-4 inline-block px-2 py-1 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300" %>
+    
+
+    <!-- Add any other user details you want to display -->
+  </div>
+</div>

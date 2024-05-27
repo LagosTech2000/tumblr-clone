@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   resources :posts
   root 'home#index'
   get 'home/about', to: 'home#about'
+  
+  get 'home/user/:id', to: 'home#user', as: 'home_user'
+
 end

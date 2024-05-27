@@ -1,8 +1,8 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing post</h1>
-
+  <h1 class="mb-4 font-bold text-4xl">Edit Post</h1>
+<hr>
   <%= render "form", post: @post %>
 
-  <%= link_to "Show this post", @post, class: "bg-indigo-500 ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to posts", posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Show this post", @post, class: "bg-indigo-500 text-white hover:bg-indigo-700 ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to posts", posts_path, class: "bg-indigo-500 text-white hover:bg-indigo-700 ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
