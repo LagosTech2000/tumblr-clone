@@ -30,26 +30,26 @@
       <div class="mb-8">
         <div class="grid grid-cols-1 gap-4">
           <% @posts.each do |post| %>
-            <div class="bg-white rounded-lg shadow-md p-4 mb-4">
-              <h5 class=" font-semibold mb-2"><%= post.title %></h5>
-              <% if post.image.attached? %>
-                <div class="mb-5">
-                  <%= link_to post.image do %>
-                    <%= image_tag(post.image, class: "w-full h-90 rounded-lg shadow-md object-fit") %>
-                  <% end %>
+            <%= turbo_frame_tag "post_#{post.id}" do %>
+              <div id="post_<%= post.id %>" class="bg-white rounded-lg shadow-md p-4 mb-4">
+                <h5 class="font-semibold mb-2"><%= post.title %></h5>
+                <% if post.image.attached? %>
+                  <div class="mb-5">
+                    <%= link_to post.image do %>
+                      <%= image_tag(post.image, class: "w-full h-90 rounded-lg shadow-md object-cover") %>
+                    <% end %>
+                  </div>
+                <% end %>
+                <a href="<%= post_path(post) %>" class="text-blue-500 hover:underline mt-2 block">Visit</a>
+                <span class="block text-gray-900">by <%= post.user.username %></span>
+                <div id="like_button_<%= post.id %>" class="mt-4 flex justify-between items-center border-t border-gray-200 pt-2">
+                  <%= render partial: "likes/like_button", locals: { post: post } %>
+                  <button class="flex items-center text-gray-600 hover:text-blue-500">
+                    <i class="fas fa-comment mr-1"></i> Comment
+                  </button>
                 </div>
-              <% end %>
-              <a href="<%= post_path(post) %>" class="text-blue-500 hover:underline mt-2 block">Visit</a>
-              <span class="block text-gray-900">by <%= post.user.username %></span>
-              <div class="mt-4 flex justify-between items-center border-t border-gray-200 pt-2">
-                <button class="flex items-center text-gray-600 hover:text-blue-500">
-                  <i class="fas fa-thumbs-up mr-1"></i> Like
-                </button>
-                <button class="flex items-center text-gray-600 hover:text-blue-500">
-                  <i class="fas fa-comment mr-1"></i> Comment
-                </button>
               </div>
-            </div>
+            <% end %>
           <% end %>
         </div>
       </div>

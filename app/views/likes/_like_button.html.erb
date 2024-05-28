@@ -1,0 +1,9 @@
+<% if already_liked?(post) %>
+  <%= button_to post_like_path(post, post.likes.find_by(user_id: current_user.id)), method: :delete, data: { turbo_frame: "post_#{post.id}" }, class: "flex items-center text-gray-600 hover:text-blue-500" do %>
+    <i class="fas fa-thumbs-up mr-1"></i> Unlike
+  <% end %>
+<% else %>
+  <%= button_to post_likes_path(post), method: :post, data: { turbo_frame: "post_#{post.id}" }, class: "flex items-center text-gray-600 hover:text-blue-500" do %>
+    <i class="fas fa-thumbs-up mr-1"></i> Like
+  <% end %>
+<% end %>

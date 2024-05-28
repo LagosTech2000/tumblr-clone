@@ -60,3 +60,5 @@ gem "tailwindcss-rails", "~> 2.5"
 gem "devise", "~> 4.9"
 
 gem "turbo-rails", "~> 2.0"
+
+gem 'stimulus-rails'
