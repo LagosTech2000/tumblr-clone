@@ -1,9 +1,8 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, only: :user  
-
+  
     def index
       @posts = Post.all
-      @users = User.all
+      @users = User.all.sample(3)
     end
 
     def about

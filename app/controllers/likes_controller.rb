@@ -3,6 +3,7 @@ class LikesController < ApplicationController
   before_action :find_post
 
   def create
+    
     unless already_liked?
       @post.likes.create(user_id: current_user.id)
     end

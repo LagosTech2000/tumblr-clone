@@ -16,7 +16,6 @@
               <%= link_to home_user_path(user)  do%>
               <h3 class="text-xl font-semibold whitespace-nowrap"><%= user.username %></h3>
               <% end %>
-              
             </div>
           </div>
         <% end %>
@@ -32,30 +31,35 @@
       <div class="mb-8">
         <div class="grid grid-cols-1 gap-4">
           <% @posts.each do |post| %>
-            <%= turbo_frame_tag "post_#{post.id}" do %>
-              <div id="post_<%= post.id %>" class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div id="post_<%= post.id %>" class="bg-white rounded-lg shadow-md p-4 mb-4">
+              <%= link_to post_path(post) do %>
                 <h5 class="font-semibold mb-2"><%= post.title %></h5>
                 <% if post.image.attached? %>
                   <div class="mb-5">
-                    <%= link_to post.image do %>
-                      <%= image_tag(post.image, class: "w-full h-90 rounded-lg shadow-md object-cover") %>
-                    <% end %>
+                    <%= image_tag(post.image, class: "w-full h-90 rounded-lg shadow-md object-cover") %>
                   </div>
                 <% end %>
+              <% end %>
                 
-                <%= link_to "Visit", post_path(post), data: { turbo_frame: "_top" }, class:"text-blue-500 hover:underline mt-2 block" %>
-                  
-                <%= link_to home_user_path(post.user) ,data:{turbo_frame: "_top" } , class:"block text-gray-900"  do %>
-                   <%= post.user.username %>                       
-                <% end%>
-                <div id="like_button_<%= post.id %>" class="mt-4 flex justify-between items-center border-t border-gray-200 pt-2">
+              <%= link_to home_user_path(post.user), data: { turbo_frame: "_top" }, class: "block text-gray-900"  do %>
+                <%= post.user.username %>                       
+              <% end %>
+
+              <%= turbo_frame_tag "post_#{post.id}" do %>
+
+                <div class="flex justify-between items-center border-t border-gray-200 pt-2">
+                <div id="like_button_<%= post.id %>" class="mt-4  ">
                   <%= render partial: "likes/like_button", locals: { post: post } %>
                   <button class="flex items-center text-gray-600 hover:text-blue-500">
+                </div>              
+
+                <div>              
                     <i class="fas fa-comment mr-1"></i> Comment
                   </button>
+                </div>              
                 </div>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>
