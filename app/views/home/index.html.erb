@@ -13,8 +13,10 @@
         <% @users.each do |user| %>
           <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
             <div class="overflow-hidden">
+              <%= link_to home_user_path(user)  do%>
               <h3 class="text-xl font-semibold whitespace-nowrap"><%= user.username %></h3>
-              <%= link_to 'View Profile', home_user_path(user), class: 'text-blue-500 hover:underline' %>
+              <% end %>
+              
             </div>
           </div>
         <% end %>
@@ -40,8 +42,12 @@
                     <% end %>
                   </div>
                 <% end %>
-                <a href="<%= post_path(post) %>" class="text-blue-500 hover:underline mt-2 block">Visit</a>
-                <span class="block text-gray-900">by <%= post.user.username %></span>
+                
+                <%= link_to "Visit", post_path(post), data: { turbo_frame: "_top" }, class:"text-blue-500 hover:underline mt-2 block" %>
+                  
+                <%= link_to home_user_path(post.user) ,data:{turbo_frame: "_top" } , class:"block text-gray-900"  do %>
+                   <%= post.user.username %>                       
+                <% end%>
                 <div id="like_button_<%= post.id %>" class="mt-4 flex justify-between items-center border-t border-gray-200 pt-2">
                   <%= render partial: "likes/like_button", locals: { post: post } %>
                   <button class="flex items-center text-gray-600 hover:text-blue-500">
