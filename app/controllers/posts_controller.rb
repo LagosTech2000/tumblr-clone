@@ -59,8 +59,8 @@ class PostsController < ApplicationController
     end
   end
 
-  def correct_user    
-    @user = current_user.post.find_by(user_id: params[:id ])
+  def correct_user        
+    @user = current_user.post.find_by(id: params[:id])
     redirect_to root_path, notice: "Not Authorized to edit this Post" if @user.nil?    
   end
 
