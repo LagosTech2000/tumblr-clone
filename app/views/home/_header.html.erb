@@ -1,36 +1,3 @@
-<nav class="bg-gray-100 bg-opacity-30 backdrop-filter backdrop-blur-md rounded-lg shadow-lg p-4">
-  <div class="container mx-auto">
-    <div class="flex items-center justify-between">
-      <!-- Brand Logo -->
-      
-
-      <!-- Mobile Menu Toggle Button -->
-      <button id="mobile-menu-toggle" class="lg:hidden text-blue-900 focus:outline-none">
-        <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-          <!-- Font Awesome menu icon when menu is open -->
-          <path v-if="isOpen" d="M4 8h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0-3h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 3h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
-
-          <!-- Font Awesome menu icon when menu is closed -->
-          <path v-else d="M4 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
-        </svg>
-      </button>
-
-      <!-- Responsive Menu Items -->
-      <div id="mobile-menu" class="hidden lg:flex lg:items-center lg:w-auto">
-        <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-       
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<%# 
-  adsdasd
- %>
-
-
-
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
   <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -53,8 +20,11 @@
       <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
         <div class="px-4 py-3">
           <% if user_signed_in? %>
+          <%= link_to home_user_path(current_user) do %>
+                
           <span class="block text-sm text-gray-900 dark:text-white"><%= current_user.username%></span>
           <span class="block text-sm  text-gray-500 truncate dark:text-gray-400"><%= current_user.email%></span>
+              <% end %>
           <% end %>
         </div>
 

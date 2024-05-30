@@ -2,7 +2,7 @@
 
   <% if post.image.attached? %>
     <div class="mb-5">
-      <%= link_to post.image do %>
+      <%= link_to post.image , target: "_blank" do %>
         <%= image_tag(post.image, class: "h-auto rounded-lg shadow-md max-w-full max-h-48 object-cover") %>
       <% end %>
     </div>

@@ -1,27 +1,58 @@
-<!-- app/views/users/show.html.erb -->
-
 <div class="container mx-auto px-4 py-8">
-  <h1 class="text-2xl font-bold mb-4">User Profile</h1>
-  
-  <div class="bg-white shadow-md p-4 rounded-lg">
-    <p><strong>Email:</strong> <%= @user.email %></p>
-    <!-- Add any other user details you want to display -->
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Left Column: User Details -->
+    <div>
+      <div class="bg-white shadow-md p-6 rounded-lg mb-4">
+        <div class="flex items-center justify-center">
+          <img src="<%= @user.avatar.attached? ? url_for(@user.avatar) : 'https://via.placeholder.com/150' %>" alt="User Avatar" class="w-32 h-32 rounded-full mb-4">
+        </div>
+        <p class="text-lg"><strong>Email:</strong> <%= @user.email %></p>
+        <p class="text-lg"><strong>Username:</strong> <%= @user.username %></p>
+        <p class="text-lg"><strong>Joined:</strong> <%= time_ago_in_words(@user.created_at) %> ago</p>
+      </div>      
+    </div>
+
+    <!-- Right Column: User Posts -->
+     <div class="w-full md:w-2/3 lg:w-2/3">
+    <div class="overflow-y-auto" style="max-height: calc(100vh - 128px);"> <!-- Adjust max-height as needed -->
+      <!-- Featured Posts Section -->
+      <div class="mb-8">
+        <div class="grid grid-cols-1 gap-4">
+          <% @user.post.each do |post| %>
+            <div id="post_<%= post.id %>" class="bg-white rounded-lg shadow-md p-4 mb-4">
+              <%= link_to post_path(post) do %>
+                <h5 class="font-semibold mb-2"><%= post.title %></h5>
+                <% if post.image.attached? %>
+                  <div class="mb-5">
+                    <%= image_tag(post.image, class: "w-80 h-full rounded-lg shadow-md object-cover") %>
+                  </div>
+                <% end %>
+              <% end %>
+                
+              <%= link_to home_user_path(post.user), data: { turbo_frame: "_top" }, class: "block text-gray-900" do %>
+                <p><%= post.user.username %></p>
+              <% end %>
+              
+              <p><%= time_ago_in_words(post.created_at) %> ago</p>
+
+              <%= turbo_frame_tag "post_#{post.id}" do %>
+                <div class="flex justify-between items-center border-t border-gray-200 pt-2">
+                  <div id="like_button_<%= post.id %>" class="mt-4">
+                    <%= render partial: "likes/like_button", locals: { post: post , comment: @comment } %>
+                  </div>
+                  <div>
+                    <%= link_to "#", data: { turbo_frame: "comments_modal_#{post.id}" }, class: "flex items-center text-gray-600 hover:text-blue-500 comments-button", data: { post_id: post.id, action: "comments-modal#open" } do %>
+                      <i class="fas fa-comment mr-1"></i> Comment
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="bg-white shadow-md p-4 rounded-lg">
-    <p><strong>Username:</strong> <%= @user.username %></p>
-    <!-- Add any other user details you want to display -->
-  </div>
-
-  <div class="bg-white shadow-md p-4 rounded-lg">
-    <p><strong>Joined
-
-     <%= time_ago_in_words(@user.created_at) %></p>
-    </strong>
-
-    <%= link_to "Home Page" , root_path, class: "mt-4 inline-block px-2 py-1 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300" %>
-    
-
-    <!-- Add any other user details you want to display -->
   </div>
 </div>
