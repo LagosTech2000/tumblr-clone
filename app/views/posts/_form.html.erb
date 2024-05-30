@@ -2,7 +2,6 @@
   <% if post.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 rounded-lg mb-4">
       <h2 class="font-bold mb-2"><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
       <ul class="list-disc list-inside">
         <% post.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,39 +10,59 @@
     </div>
   <% end %>
 
-  <div class="mb-6">
-    <%= form.label :title, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.text_field :title, class: "form-input mt-1 block w-full border-2 border-gray-300 rounded-md py-2 px-3 placeholder-gray-500 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500" %>
-  </div>
+  <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+    <h2 class="text-3xl font-semibold mb-6 text-left">Create a New Post</h2>
+    <hr class="border-2 mb-4" />
 
-  <div class="mb-6">
-    <%= form.label :body, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.text_area :body, rows: 4, class: "form-textarea mt-1 block w-full border-2 border-gray-300 rounded-md py-2 px-3 placeholder-gray-500 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500" %>
-  </div>
+    <div class="mb-6">
+      <%= form.label :title, class: "block text-gray-700 font-bold mb-2" %>
+      <%= form.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
 
-  <div class="mb-6">
-    <%= form.label :image, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.file_field :image, id: "image-upload", class: "form-input mt-1 block w-full border-2 border-gray-300 rounded-md py-2 px-3 placeholder-gray-500 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500", accept: "image/*" %>
-    <img id="image-preview" class="hidden mt-2 h-80 w-80" />
-  </div>
+    <div class="mb-6">
+      <%= form.label :body, class: "block text-gray-700 font-bold mb-2" %>
+      <%= form.text_area :body, rows: 4, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
 
-  <%= form.hidden_field :user_id, value: current_user.id %>
+    <div class="mb-4">
+      <%= form.label :image, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <div class="neumorphic-image-preview rounded-full p-6 cursor-pointer transition-shadow duration-300 hover:shadow-lg bg-gray-200 shadow-inner" id="image-preview">
+        <img id="preview-image" src="https://via.placeholder.com/150" alt="Avatar Preview" class="w-32 h-32 rounded-full mx-auto">
+        <label for="user_avatar" class="block text-gray-700 text-sm font-bold mb-2 mt-2 text-center">Click to change image</label>
+        <%= form.file_field :image, accept: "image/*", class: "hidden", id: "user_avatar" %>
+      </div>
+    </div>
 
-  <div class="mb-6">
-    <%= form.submit "Submit", class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300" %>
+
+    <%= form.hidden_field :user_id, value: current_user.id %>
+
+    <div class="flex items-center justify-center">
+      <%= form.submit "Submit", class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300" %>
+    </div>
   </div>
 <% end %>
 
+
 <script>
-  document.getElementById("image-upload").addEventListener("change", function(event) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    
-    reader.onload = function(e) {
-      document.getElementById("image-preview").src = e.target.result;
-      document.getElementById("image-preview").classList.remove("hidden");
-    }
-    
-    reader.readAsDataURL(file);
+  document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('user_avatar');
+    const previewImage = document.getElementById('preview-image');
+    const imagePreview = document.getElementById('image-preview');
+
+    imagePreview.addEventListener('click', function() {
+      input.click();
+    });
+
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          previewImage.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   });
 </script>
+
