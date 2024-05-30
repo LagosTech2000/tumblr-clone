@@ -1,0 +1,18 @@
+<div id="new_comment_form">
+  <% if current_user %>
+    <%= form_with(model: [post, comment], url: post_comments_path(post), method: :post, data: { turbo_frame: 'comments' }, html: { class: "flex justify-left items-center w-full mb-4" }) do |form| %>
+      <div class="flex flex-col mr-4">
+        <%= form.text_field :body, class: "rounded-lg border-gray-300 mt-2 h-12 px-4 focus:outline-none focus:ring focus:border-indigo-500", placeholder: "Write a comment..." %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        
+        <% if comment.errors.has_key?(:body) %>
+          <p class="text-red-500 text-sm mt-1"><%= comment.errors.full_messages_for(:body).first %></p>
+        <% end %>
+      </div>
+
+      <div>    
+        <%= form.submit 'Add', class: "bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg focus:outline-none" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

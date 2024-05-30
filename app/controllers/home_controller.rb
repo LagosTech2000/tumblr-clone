@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   
     def index
-      @posts = Post.all
+      @posts = Post.recentPosts
       @users = User.all.sample(3)
     end
 

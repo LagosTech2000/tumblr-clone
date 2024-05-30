@@ -1,0 +1,11 @@
+<div id="<%= dom_id(comment) %>" class="bg-gray-100 rounded-lg p-4 mb-4">
+  <div class="flex justify-between items-center">
+    <p class="text-gray-800"><strong><%= comment.user.username %>:</strong> <%= comment.body %></p>
+    <% if comment.user == current_user %>
+     <%= button_to 'Delete', post_comment_path(comment.post_id, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 ml-2" %>
+
+    <% end %>
+  </div>
+  <p><%= time_ago_in_words(comment.created_at) %></p>
+  <hr class="mt-2 border-gray-200">
+</div>
