@@ -4,9 +4,10 @@ class Post < ApplicationRecord
   has_many :likes
   has_many :likers, through: :likes, source: :user
   has_many :comments, dependent: :destroy
+  scope :active, -> { where(active: true) }
 
   def self.UserPosts(user_id)
-    where(user_id: user_id)
+    active.where(user_id: user_id)
   end
 
   def self.recentPosts
